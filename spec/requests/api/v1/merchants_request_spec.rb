@@ -10,6 +10,13 @@ describe 'Merchants API' do
 
     merchants = JSON.parse(response.body)
 
-    expect(merchants.count).to eq(10)
+    expect(merchants["data"].count).to eq(10)
+
+    expect(merchants["data"][0]["attributes"].keys).to include('id')
+    expect(merchants["data"][0]["attributes"].keys).to include('name')
+    expect(merchants["data"][0]["attributes"].keys).to_not include('created_at')
+    expect(merchants["data"][0]["attributes"].keys).to_not include('updated_at')
   end
+
+  it
 end
