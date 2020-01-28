@@ -18,5 +18,15 @@ describe 'Merchants API' do
     expect(merchants["data"][0]["attributes"].keys).to_not include('updated_at')
   end
 
-  it
+  it 'can send a single merchant' do
+    merchants = create_list(:random_merchant, 10)
+    first_merchant = merchants.first
+
+    get "/api/v1/merchants/#{first_merchant.id}"
+
+    expect(response).to be_successful
+
+    parsed_merchant = JSON.parse(response.body)["data"]["attributes"]
+    expect(parsed_merchant["id"]).to eq(first_merchant.id)
+  end
 end
