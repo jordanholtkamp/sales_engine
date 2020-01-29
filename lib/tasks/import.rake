@@ -1,16 +1,4 @@
 require 'csv'
-# require '././app/models/item'
-
-
-# task :items => [:environment] do
-  # items = []
-  # path = '././data/sales_engine/data/items.csv'
-  # CSV.foreach(path, headers: true) do |row|
-  #   items << row.to_h
-  # end 
-# end
-# require 'pry'; binding.pry
-# Item.import(items)
 
 task :customers => [:environment] do
   customers = []
