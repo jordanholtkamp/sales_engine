@@ -7,4 +7,8 @@ class Item < ApplicationRecord
   # validates_presence_of :name
   # validates_presence_of :description
   # validates_presence_of :unit_price
+
+  # def unit_price
+  #   unit_price / 100
+  # end
 end
