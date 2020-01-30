@@ -2,7 +2,7 @@ require 'csv'
 
 task :customers => [:environment] do
   customers = []
-  file_path = '././data/sales_engine/data/customers.csv'
+  file_path = '././data/data/customers.csv'
   CSV.foreach(file_path, headers: true) do |row|
     customers << row.to_hash
   end 
