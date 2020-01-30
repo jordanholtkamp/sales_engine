@@ -2,20 +2,20 @@ require 'rails_helper'
 
 describe 'invoice items api' do
   before :each do
-    @customer = create(:random_customer)
-    @merchant = create(:random_merchant)
+    customer = create(:random_customer)
+    merchant = create(:random_merchant)
 
-    @invoice = Invoice.create!(status: 0, customer_id: @customer.id, merchant_id: @merchant.id)
-    @invoice_2 = Invoice.create!(status: 0, customer_id: @customer.id, merchant_id: @merchant.id)
+    invoice = Invoice.create!(status: 0, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_2 = Invoice.create!(status: 0, customer_id: customer.id, merchant_id: merchant.id)
 
-    @item_1 = create(:random_item, merchant_id: @merchant.id)
-    @item_2 = create(:random_item, merchant_id: @merchant.id)
+    item_1 = create(:random_item, merchant_id: merchant.id)
+    item_2 = create(:random_item, merchant_id: merchant.id)
 
-    @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice, quantity: 10, unit_price: 1000)
-    @invoice_item_2 = InvoiceItem.create!(item: @item_2, invoice: @invoice, quantity: 5, unit_price: 1000)
-    @invoice_item_3 = InvoiceItem.create!(item: @item_2, invoice: @invoice_2, quantity: 20, unit_price: 1000)
+    @invoice_item_1 = InvoiceItem.create!(item: item_1, invoice: invoice, quantity: 10, unit_price: 1000)
+    @invoice_item_2 = InvoiceItem.create!(item: item_2, invoice: invoice, quantity: 5, unit_price: 1000)
+    @invoice_item_3 = InvoiceItem.create!(item: item_2, invoice: invoice_2, quantity: 20, unit_price: 1000)
   end
-  
+
   it 'sends a list of invoice items' do
     get '/api/v1/invoice_items'
 
@@ -29,5 +29,20 @@ describe 'invoice items api' do
     expect(invoice_items[1]["attributes"]["item_id"]).to eq(@invoice_item_2.item.id)
     expect(invoice_items[1]["attributes"]["quantity"]).to eq(@invoice_item_2.quantity)
     expect(invoice_items[1]["attributes"]["unit_price"]).to eq((@invoice_item_2.unit_price/100).to_s)
+  end
+
+  it 'sends a single invoice item' do
+    get "/api/v1/invoice_items/#{@invoice_item_3.id}"
+
+    expect(response).to be_successful
+
+    parsed_invoice_item = JSON.parse(response.body)["data"]
+    invoice = parsed_invoice_item["relationships"]["invoice"]["data"]
+
+    expect(parsed_invoice_item["attributes"]["id"]).to eq(@invoice_item_3.id)
+    expect(parsed_invoice_item["attributes"]["invoice_id"]).to eq(@invoice_item_3.invoice_id)
+    expect(parsed_invoice_item["attributes"]["item_id"]).to eq(@invoice_item_3.item_id)
+    expect(parsed_invoice_item["attributes"]["quantity"]).to eq(@invoice_item_3.quantity)
+    expect(parsed_invoice_item["attributes"]["unit_price"]).to eq((@invoice_item_3.unit_price/100).to_s)
   end
 end
