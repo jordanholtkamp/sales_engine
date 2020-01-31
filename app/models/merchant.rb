@@ -3,4 +3,7 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :items
 
+  def self.find_all(param_hash)
+    where(param_hash)
+  end
 end
