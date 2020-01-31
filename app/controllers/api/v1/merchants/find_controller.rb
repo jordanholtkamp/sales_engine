@@ -3,6 +3,10 @@ class Api::V1::Merchants::FindController < ApplicationController
     render json: MerchantSerializer.new(Merchant.find_by(merchant_params))
   end 
 
+  def index
+    render json: MerchantSerializer.new(Merchant.find_all(merchant_params))
+  end
+
   private
   def merchant_params
     params.permit(:id, :name, :created_at, :updated_at)
