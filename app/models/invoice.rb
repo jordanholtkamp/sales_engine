@@ -8,4 +8,12 @@ class Invoice < ApplicationRecord
   # validates_presence_of :status
 
   enum status: %w(shipped)
+
+  def self.find_all(param_hash)
+    where(param_hash)
+  end
+
+  def self.find_by_customer(param_hash)
+    order(:id).where(param_hash)
+  end
 end
