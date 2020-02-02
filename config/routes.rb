@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
         get '/:customer_id/invoices', to: 'invoices#index'
         get '/:customer_id/transactions', to: 'transactions#index'
+
+        get '/:customer_id/favorite_merchant', to: 'favorite_merchant#show'
       end
 
       namespace :merchants do
@@ -17,6 +19,11 @@ Rails.application.routes.draw do
 
         get '/:merchant_id/items', to: 'items#index'
         get '/:merchant_id/invoices', to: 'invoices#index'
+
+        get '/most_revenue', to: 'most_revenue#index'
+        get '/most_revenue', to: 'most_revenue#show'
+
+        get '/:merchant_id/favorite_customer', to: 'favorite_customer#show'
       end
 
       namespace :items do
