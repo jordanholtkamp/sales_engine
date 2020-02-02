@@ -13,6 +13,7 @@ class Api::V1::Transactions::FindController < ApplicationController
   
 
   private
+  
   def transaction_params
     params.permit(:id, :invoice_id, :result, :credit_card_number, :created_at, :updated_at)
   end
