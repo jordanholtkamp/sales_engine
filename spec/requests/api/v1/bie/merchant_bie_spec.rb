@@ -56,14 +56,4 @@ describe 'Merchant API' do
     expect(merchant_data.count).to eq(1)
     expect(merchant_data.first['attributes']['id']).to eq(@merchant_3.id)
   end
-
-  it 'shows the favorite customer for a merchant' do
-    get "/api/v1/merchants/#{@merchant_1.id}/favorite_customer"
-    
-  end
-
-  it 'returns the favorite merchant for a customer' do
-    get "/api/v1/customers/#{@customer_1.id}/favorite_merchant"
-    
-  end
 end

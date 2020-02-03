@@ -2,9 +2,6 @@ class InvoiceItem < ApplicationRecord
   belongs_to :item
   belongs_to :invoice
 
-  # validates_presence_of :quantity
-  # validates_presence_of :unit_price
-
   def self.find_all(param_hash)
     where(param_hash)
   end
