@@ -7,6 +7,5 @@ class Api::V1::Merchants::MostRevenueController < ApplicationController
 
   def show
     find_by_date = request.query_parameters['date']
-    # require 'pry'; binding.pry
   end
 end
